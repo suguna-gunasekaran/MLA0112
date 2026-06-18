@@ -1,7 +1,0 @@
-START
-Read number of disks N
-Move N-1 disks from Source to Auxiliary
-Move largest disk to Destination
-Move N-1 disks from Auxiliary to Destination
-Display moves
-STOP
