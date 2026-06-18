@@ -1,0 +1,8 @@
+START
+Initialize open list
+Select best node
+Expand node
+Add successors
+Repeat until goal found
+Display solution path
+STOP
