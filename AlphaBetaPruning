@@ -1,0 +1,44 @@
+import math
+
+tree = {
+    'A': ['B', 'C'],
+    'B': ['D', 'E'],
+    'C': ['F', 'G'],
+    'D': ['H', 'I'],
+    'E': ['J', 'K'],
+    'F': ['L', 'M'],
+    'G': ['N', 'O'],
+    'H': 4, 'I': 2, 'J': 5, 'K': 7,
+    'L': 0, 'M': 1, 'N': 6, 'O': 4
+}
+
+def alpha_beta(node, alpha, beta, is_maximizing):
+    if isinstance(tree[node], int):
+        return tree[node]
+    
+    if is_maximizing:
+        best_val = -math.inf
+        for child in tree[node]:
+            val = alpha_beta(child, alpha, beta, False)
+            best_val = max(best_val, val)
+            alpha = max(alpha, best_val)
+            if beta <= alpha:
+                print(f"Pruned at {node} after {child}")
+                break # Beta cutoff
+        print(f"MAX {node} = {best_val}, alpha={alpha}, beta={beta}")
+        return best_val
+    else:
+        best_val = math.inf
+        for child in tree[node]:
+            val = alpha_beta(child, alpha, beta, True)
+            best_val = min(best_val, val)
+            beta = min(beta, best_val)
+            if beta <= alpha:
+                print(f"Pruned at {node} after {child}")
+                break # Alpha cutoff
+        print(f"MIN {node} = {best_val}, alpha={alpha}, beta={beta}")
+        return best_val
+
+# Run with alpha=-inf, beta=+inf
+result = alpha_beta('A', -math.inf, math.inf, True)
+print(f"\nOptimal value at root A: {result}") # Still 2
